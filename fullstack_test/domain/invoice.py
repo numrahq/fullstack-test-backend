@@ -6,9 +6,14 @@ from fullstack_test.domain.orm import Base
 class Invoice(Base):
     __tablename__ = 'invoice'
     id = Column(Integer, primary_key=True)
+    vendor = Column(String)
+    vendor_tax_registration_number = Column(String)
+    vendor_bank_details = Column(String)
+    vendor_address = Column(String)
+    billing_address = Column(String)
     number = Column(String)
     po_number = Column(String)
-    issued_date = Column(Date)
+    date_of_issue = Column(Date)
     due_date = Column(Date)
     payment_terms = Column(Integer)
     description = Column(String)

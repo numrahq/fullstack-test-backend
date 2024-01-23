@@ -1,25 +1,13 @@
-INSERT INTO invoice (
-    number,
-	issued_date,
-	due_date,
-	payment_terms,
-	description,
-	line_item_details,
-	pre_tax_amount,
-	tax_amount,
-	total_amount,
-	gl_code,
-	cost_centre
-) VALUES (
-    'INV-123',
-    now(),
-    now(),
-    30,
-    'x2 MacBook Pro',
-    'x2 MacBook Pro',
-    14000,
-    2000,
-    16000,
-    'EQ12',
-    'Equipment'
-);
+INSERT INTO invoice
+(number, vendor, vendor_tax_registration_number, vendor_bank_details, vendor_address, billing_address, po_number, date_of_issue, payment_terms, due_date, description, line_item_details, pre_tax_amount, discount, tax_amount, total_amount, gl_code, cost_centre, currency)
+VALUES
+('INV-001', 'Vendor A', 'TAX123456A', 'BANK12345A', '123 Vendor St, City A', '456 Billing Rd, City B', 'PO1234A', '2024-01-01', 30, '2024-01-31', '2x Widget A', '2x Widget A', 1000.00, 0.00, 200.00, 1200.00, 'GL001', 'Cost Centre A', 'USD'),
+('INV-002', 'Vendor B', 'TAX123456B', 'BANK12345B', '789 Vendor Ave, City C', '987 Billing Ln, City D', 'PO1234B', '2024-02-01', 45, '2024-03-18', '3x Gadget B', '3x Gadget B', 1500.00, 0.00, 300.00, 1800.00, 'GL002', 'Cost Centre B', 'EUR'),
+('INV-003', 'Vendor C', 'TAX123456C', 'BANK12345C', '321 Vendor Blvd, City E', '654 Billing Cir, City F', 'PO1234C', '2024-03-05', 30, '2024-04-04', '5x Device C', '5x Device C', 2500.00, 50.00, 500.00, 2950.00, 'GL003', 'Cost Centre C', 'GBP'),
+('INV-004', 'Vendor D', 'TAX123456D', 'BANK12345D', '123 Vendor Way, City G', '321 Billing St, City H', 'PO1234D', '2024-04-10', 60, '2024-06-09', '1x Machinery D', '1x Machinery D', 4500.00, 0.00, 900.00, 5400.00, 'GL004', 'Cost Centre D', 'JPY'),
+('INV-005', 'Vendor E', 'TAX123456E', 'BANK12345E', '456 Vendor Rd, City I', '789 Billing Ave, City J', 'PO1234E', '2024-05-15', 30, '2024-06-14', '10x Tool E', '10x Tool E', 600.00, 0.00, 120.00, 720.00, 'GL005', 'Cost Centre E', 'CAD'),
+('INV-006', 'Vendor F', 'TAX123456F', 'BANK12345F', '654 Vendor Ln, City K', '987 Billing Blvd, City L', 'PO1234F', '2024-06-20', 30, '2024-07-20', '4x Equipment F', '4x Equipment F', 3200.00, 100.00, 640.00, 3740.00, 'GL006', 'Cost Centre F', 'AUD'),
+('INV-007', 'Vendor G', 'TAX123456G', 'BANK12345G', '321 Vendor Cir, City M', '654 Billing Way, City N', 'PO1234G', '2024-07-25', 30, '2024-08-24', '2x Appliance G', '2x Appliance G', 800.00, 0.00, 160.00, 960.00, 'GL007', 'Cost Centre G', 'CHF'),
+('INV-008', 'Vendor H', 'TAX123456H', 'BANK12345H', '123 Vendor Pkwy, City O', '321 Billing Rd, City P', 'PO1234H', '2024-08-30', 30, '2024-09-29', '6x Material H', '6x Material H', 1800.00, 0.00, 360.00, 2160.00, 'GL008', 'Cost Centre H', 'CNY'),
+('INV-009', 'Vendor I', 'TAX123456I', 'BANK12345I', '789 Vendor Dr, City Q', '987 Billing St, City R', 'PO1234I', '2024-09-01', 30, '2024-10-01', '8x Component I', '8x Component I', 4000.00, 200.00, 800.00, 4600.00, 'GL009', 'Cost Centre I', 'INR'),
+('INV-010', 'Vendor J', 'TAX123456J', 'BANK12345J', '654 Vendor Blvd, City S', '321 Billing Ave, City T', 'PO1234J', '2024-10-05', 30, '2024-11-04', '7x Item J', '7x Item J', 2100.00, 0.00, 420.00, 2520.00, 'GL010', 'Cost Centre J', 'BRL');

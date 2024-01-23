@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "fullstack-test"
+version = "0.1.0"
+description = ""
+authors = ["Felipe Carvalho <felipe.carvalho@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.0"
+python-dotenv = "^1.0.1"
+poetry-dotenv-plugin = "^0.2.0"
+sqlalchemy = "^2.0.25"
+psycopg2-binary = "^2.9.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+uvicorn = "^0.27.0"
+faker = "^22.5.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

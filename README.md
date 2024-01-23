@@ -5,6 +5,12 @@
 This repo is a backend starter project for Autonifai's Take Home Test. 
  It exposes HTTP endpoints to be consumed by the frontend app.
 
+## Goals of this repo
+- Present you with a close-to-real codebase at Autonifai, with all the pros & cons
+  - Do not expect state-of-the-art-code. We're a startup, things won't always be perfect, it's all about continuous improvement.
+- Assess your proficiency in writing Python code in a HTTP API
+- Assess your proficiency in working with automated tests
+
 ## Endpoints
 - `/invoices`: exposes information about invoices contained in the DB 
 - TBD

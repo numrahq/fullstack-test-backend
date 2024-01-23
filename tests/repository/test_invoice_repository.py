@@ -53,3 +53,15 @@ class TestInvoiceRepository(TestCase):
 
         self.assertEqual(1, len(all_invoices))
         self.assertEqual('INV-123', all_invoices[0].number)
+
+    def test_that_find_by_id_returns_an_instance(self):
+        repository = InvoiceRepository(self.session_factory())
+        invoice = repository.find_by_id(1)
+
+        self.assertEqual('INV-123', invoice.number)
+
+    def test_that_find_by_id_returns_none(self):
+        repository = InvoiceRepository(self.session_factory())
+        invoice = repository.find_by_id(-1)
+
+        self.assertIsNone(invoice)

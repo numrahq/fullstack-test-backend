@@ -9,3 +9,9 @@ class InvoiceRepository:
     def find_all(self):
         with self.session:
             return self.session.query(Invoice).all()
+
+    def find_by_id(self, invoice_id):
+        with self.session:
+            return self.session.query(Invoice) \
+                .filter_by(id=invoice_id) \
+                .first()

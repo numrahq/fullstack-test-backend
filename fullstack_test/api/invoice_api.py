@@ -12,3 +12,6 @@ class InvoiceApi:
 
     def get_all(self):
         return self.invoice_repository.find_all()
+
+    def get(self, invoice_id: int = None):
+        return self.invoice_repository.find_by_id(invoice_id)

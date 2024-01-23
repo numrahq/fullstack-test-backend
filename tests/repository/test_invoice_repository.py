@@ -65,3 +65,15 @@ class TestInvoiceRepository(TestCase):
         invoice = repository.find_by_id(-1)
 
         self.assertIsNone(invoice)
+
+    def test_that_update_status_does_its_thing(self):
+        invoice_id = 1
+        repository = InvoiceRepository(self.session_factory())
+        repository.update_status(invoice_id, 'APPROVED')
+
+        updated_invoice = self.session_factory() \
+            .query(Invoice) \
+            .filter_by(id=invoice_id) \
+            .first()
+
+        self.assertEqual('APPROVED', updated_invoice.status)

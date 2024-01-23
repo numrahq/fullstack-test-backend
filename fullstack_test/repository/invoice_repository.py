@@ -15,3 +15,12 @@ class InvoiceRepository:
             return self.session.query(Invoice) \
                 .filter_by(id=invoice_id) \
                 .first()
+
+    def update_status(self, invoice_id, new_status):
+        with self.session:
+            self.session.query(Invoice) \
+                .filter_by(id=invoice_id) \
+                .update({"status": new_status})
+            self.session.commit()
+
+

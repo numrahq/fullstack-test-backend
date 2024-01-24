@@ -12,8 +12,10 @@ This repo is a backend starter project for Autonifai's Take Home Test.
 - Assess your proficiency in working with automated tests
 
 ## Endpoints
-- `/invoices`: exposes information about invoices contained in the DB 
-- TBD
+- `GET /invoices`: returns all invoices contained in the DB 
+- `GET /invoices?invoice_id={id}`: returns the details of a specific invoice 
+- `POST /invoices/{id}/approval`: changes the status of an invoice to `APPROVED` 
+- `DELETE /invoices/{id}/approval`: changes the status of an invoice to `REJECTED` 
 
 ## What are you required to do?
 - implement the logic to expose an invoice's PDF file from an Amazon S3 bucket for the frontend to consume 

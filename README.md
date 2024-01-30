@@ -2,7 +2,7 @@
 > Backend component of the Take Home Test for fullstack candidates to Autonifai
 
 ## What is this repo?
-This repo is a backend starter project for Autonifai's Take Home Test. 
+This repo is a backend starter project for [Autonifai's Take Home Test](https://github.com/autonifai/fullstack-take-home-test). 
  It exposes HTTP endpoints to be consumed by the frontend app.
 
 ## Goals of this repo

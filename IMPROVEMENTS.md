@@ -84,6 +84,10 @@ There's no way to know which valid status exist at the moment, and how each stat
 
 For example, it is not clear at the moment, if it's acceptable to have a rejected invoice to be approved later. Depending on the answer and amount of states, different implementations can be used, from simple if-elses to state machines.
 
+## PDF
+
+If invoice can be of different types, probably we need a way to register metainformation about the uplaoded file
+
 # Testing
 
 The readme lacks instructions to run the tests

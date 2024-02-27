@@ -40,8 +40,6 @@ class TestS3Service(TestCase):
 
         # Configure the mock_s3 to thrown
         mock_s3.get_object.side_effect = Exception("Simulated S3 Error")
-        # simulated_pdf_content = b"Simulated PDF Content"
-        # mock_s3.get_object.return_value = {'Body': MagicMock(read=MagicMock(return_value=simulated_pdf_content))}
 
         bucket_name = "test"
         aws_access_key="access"

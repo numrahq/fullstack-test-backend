@@ -52,10 +52,9 @@ class TestS3Service(TestCase):
 
         invoice_id = randint(1, 100)
 
+        # Call the download_pdf method
         with self.assertRaises(ValueError) as context:
             s3_service.download(invoice_id)
-
-        # Call the download_pdf method
 
         # Assertions
         mock_boto3_client.assert_called_with('s3', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)

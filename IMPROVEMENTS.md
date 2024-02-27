@@ -108,6 +108,22 @@ It's time consuming to run tests manually. HGaving the tests run every change mo
 
 Implemented by installing `pytest-watch`, run with `poetry run ptw`
 
+## Test as documentation
+
+Tho it's technically possible to "change" the returned type for tests, it can be confusing for someone reading the tests as documentation.
+
+In the test for the GET endpoints, both test return an array, which is not what one of the actual endpoints returns. The test still works due to mocks, but might mislead new collaborators.
+
+## Cleanup
+
+In other languages I've worked with, it was a good idea to clear mocks between tests to keep all tests trully isolated.
+
+## Reusage
+
+Tho it's better to isolate code where possible, a tradeoff worth discussing is what could be reused from tests.
+
+For instance, in the API test, there's a lot of initialization code happening over and over again.
+
 # Architecture
 
 ## Dependency injection

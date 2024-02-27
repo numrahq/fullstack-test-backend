@@ -12,6 +12,12 @@ At this point in time, it seems that the following changes could be done `api/in
 
 We can enhance the code by explicitly telling which types should be returned by the functions. My IDE was a bit lost on this.
 
+## Error treatment
+
+It's good to have at least one generic way to hook up "catching" errors with an error treatment.
+
+As the business logic progress, specialized catches can be put in place, allowing specialized treaments.
+
 # RESTful API
 
 When going for REST apis it's a common practice to follow the RESTfull conventions. I don't know if this was the intention here, but if it was, there are some possible improvements.
@@ -72,6 +78,12 @@ It seems that setting autoincrement on the invoice makes sense
 
 Is it safe to assume an invoice always have those same data? Like, is it a world-wide standard?
 
+## Invoice status
+
+There's no way to know which valid status exist at the moment, and how each status changes into another status.
+
+For example, it is not clear at the moment, if it's acceptable to have a rejected invoice to be approved later. Depending on the answer and amount of states, different implementations can be used, from simple if-elses to state machines.
+
 # Testing
 
 The readme lacks instructions to run the tests
@@ -91,3 +103,19 @@ At the moment, it seems okay to add code dependencies as parameters but as the a
 Apparently, there are some conventions in Python that would allow us to force which package can use which other package.
 
 This is useful to highlight architecural dependencies, for instance, when following a clean architecure approach internal layers must be ignorante about its most-immediate external layer.
+
+## Separation of concerns
+
+The repository is also updating the domain, instead of just commiting/rejecting changes on the domain. At first this seems a neglible detail but it tends to:
+
+- Create anemic domains: the model become just a "bag of data"
+- Leak responsabilities: if the domain doesn't change itself, we break OOP's concept of encapsulation
+- Difficulty on enforcing consistency rules: rules about consistent state of the model can be anywhere, making it hard to support the codebase
+
+## Business explicitness
+
+Tho the code gets a bit more complicated, it's nice to be explicit about possible scenarios that might happen. For instance, at the moment, if I call approve and then reject, the latter operation overwrites the first, it's not clear if this is a desired outcome.
+
+The API layer should call either another piece of code that knows how to handle many different scenarios. In some architectures, this is a service or use case layer, where we can write code that is concerned with such things.
+
+The service's code knows each possible valid business variation, which includes blocking invalida scenarios.

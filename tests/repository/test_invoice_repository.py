@@ -10,11 +10,11 @@ from fullstack_test.repository.invoice_repository import InvoiceRepository
 
 
 class TestInvoiceRepository(TestCase):
-    engine = create_engine("sqlite://")
+    engine = create_engine("sqlite:///:memory:")
     session_factory = sessionmaker(bind=engine)
     Base = declarative_base()
 
-    def setup_class(self):
+    def setUp(self):
         Base.metadata.create_all(self.engine)
 
         session = self.session_factory()
@@ -44,7 +44,7 @@ class TestInvoiceRepository(TestCase):
         session.commit()
         session.close()
 
-    def teardown_class(self):
+    def tearDown(self):
         Base.metadata.drop_all(self.engine)
 
     def test_that_find_all_returns_all_database_objects(self):

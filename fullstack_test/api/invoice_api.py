@@ -9,9 +9,13 @@ class InvoiceApi:
         self.invoice_repository = InvoiceRepository(session_factory()) if ir is None else ir
         self.router = APIRouter()
         self.router.add_api_route("/invoices", self.get, methods=["GET"])
+        self.router.add_api_route("/invoices/{invoice_id}/file", self.get_invoice_file, methods=["GET"])
         self.router.add_api_route("/invoices/{invoice_id}/approval", self.approve, methods=["POST"])
         self.router.add_api_route("/invoices/{invoice_id}/approval", self.reject, methods=["DELETE"])
 
+    def get_invoice_file(self, invoice_id: int):
+        return "hi"
+    
     def get(self, invoice_id: int = None):
         if invoice_id is None:
             return self.invoice_repository.find_all()

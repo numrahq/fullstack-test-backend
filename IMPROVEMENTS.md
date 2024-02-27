@@ -18,6 +18,10 @@ It's good to have at least one generic way to hook up "catching" errors with an 
 
 As the business logic progress, specialized catches can be put in place, allowing specialized treaments.
 
+## API configurations are hard-coded
+
+Data from the API configuration can be set in a similar fashion that the DB cnfiguration.
+
 # RESTful API
 
 When going for REST apis it's a common practice to follow the RESTfull conventions. I don't know if this was the intention here, but if it was, there are some possible improvements.
@@ -90,11 +94,19 @@ If invoice can be of different types, probably we need a way to register metainf
 
 # Testing
 
+## Lack of instructions
+
 The readme lacks instructions to run the tests
 
 ## GET does not guarantee mock is being used
 
 If we're goind with unit test, it makes sense for the API's mock to have an assertion to see if the expectation is not hard-coded
+
+## Feedback loop (implemented)
+
+It's time consuming to run tests manually. HGaving the tests run every change motivates people to at least be aware of the state of the codebase
+
+Implemented by installing `pytest-watch`, run with `poetry run ptw`
 
 # Architecture
 

@@ -1,5 +1,4 @@
-from fullstack_test.domain.invoice import Invoice
-from fullstack_test.domain.orm import session_factory
+from fullstack_test.services.aws_config import AWS_ACCESS_KEY, AWS_SECRET_KEY
 
 # EXERCISE COMMENT:
 # The idea of having an "interface" is that we don't need to think of the implementation details
@@ -8,12 +7,12 @@ from fullstack_test.domain.orm import session_factory
 #
 # For the sake of time, this interface and concrete class will share same file
 class ObjectStorageService:
-    def read(self, path: str):
+    def download(self, path: str):
         pass
 
 class S3Service(ObjectStorageService):
     # def __init__(self):
         # self.session = session_factory() if sf is None else sf
 
-    def read(self, path: str):
-        return path
+    def download(self, path: str):
+        return f"{path}_{AWS_ACCESS_KEY}_{AWS_SECRET_KEY}"

@@ -1,0 +1,5 @@
+import os
+
+API_ALLOWED_ORIGINS = os.environ.get("API_ALLOWED_ORIGINS", "")
+
+API_ALLOWED_ORIGINS = API_ALLOWED_ORIGINS.split(",")

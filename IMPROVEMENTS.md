@@ -1,6 +1,6 @@
 Here are some of the things I've noticed with the codebase that could have some improvement
 
-# Python
+# Code
 
 ## Private methods
 

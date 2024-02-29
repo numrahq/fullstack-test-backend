@@ -84,9 +84,9 @@ Is it safe to assume an invoice always have those same data? Like, is it a world
 
 ## Invoice status
 
-There's no way to know which valid status exist at the moment, and how each status changes into another status.
+There's no way to know which valid statuses exist at the moment.
 
-For example, it is not clear at the moment, if it's acceptable to have a rejected invoice to be approved later. Depending on the answer and amount of states, different implementations can be used, from simple if-elses to state machines.
+Neither how each status changes into another status. For example, it is not clear at the moment, if it's acceptable to have a rejected invoice to be approved later. Depending on the answer and amount of states, different implementations can be used, from simple if-elses to state machines.
 
 ## Timezones
 

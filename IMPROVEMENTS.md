@@ -18,7 +18,7 @@ It's good to have at least one generic way to hook up "catching" errors with an 
 
 As the business logic progress, specialized catches can be put in place, allowing specialized treaments.
 
-## API configurations are hard-coded
+## API configurations are hard-coded (implemented)
 
 Data from the API configuration can be set in a similar fashion that the DB cnfiguration.
 

@@ -57,6 +57,14 @@ Some people like normalize the API's responses, always returning an object. So t
 
 Having a standard allows for generalization.
 
+## All those invoices
+
+Only invoices that a user can see should appear to them. And on that matter, filtering and pagination could be implemented.
+
+Filtering in the sense that the current endpoint gets all invoices, regardless of due date, status, etc. Depending on the business rules what it returns is more granular than current implemenation.
+
+Pagination would allow us to not freeze the FE in case the volume of invoices is to big for the aforementioned user.
+
 # Docker
 
 ## Docker startup

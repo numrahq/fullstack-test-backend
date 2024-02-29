@@ -88,6 +88,10 @@ There's no way to know which valid status exist at the moment, and how each stat
 
 For example, it is not clear at the moment, if it's acceptable to have a rejected invoice to be approved later. Depending on the answer and amount of states, different implementations can be used, from simple if-elses to state machines.
 
+## Timezones
+
+I couldn't find which timezones the dates refer to on sqlalchemy's documentation. This can be problematic if invoices can, for any reason, can be uploaded in a timezone but approved (last minute) on another.
+
 ## PDF
 
 If invoice can be of different types, probably we need a way to register metainformation about the uplaoded file

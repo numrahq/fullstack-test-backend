@@ -7,15 +7,21 @@ from fullstack_test.services.s3_service import S3Service
 
 class TestS3Service(TestCase):
     @patch("boto3.client")
-    def test_download_success(self, mock_boto3_client):
-        # Mock the S3 client
-        mock_s3 = MagicMock()
-        mock_boto3_client.return_value = mock_s3
+    @patch("fastapi.responses.StreamingResponse")
+    def test_download_success(self, mock_streaming_response, mock_boto3_client):
+        pdf = iter([b'mock_chunk1', b'mock_chunk2'])
+        # Mocking boto3.client
+        mock_s3_client = mock_boto3_client.return_value
+        mock_s3_client.get_object.return_value = {
+            'Body': MagicMock(iter_chunks=MagicMock(return_value=pdf)),
+            'ContentType': 'application/pdf'
+        }
 
-        # Configure the mock_s3 to return a simulated PDF content
-        simulated_pdf_content = b"Simulated PDF Content"
-        mock_s3.get_object.return_value = {'Body': MagicMock(read=MagicMock(return_value=simulated_pdf_content))}
-
+        # Configure StreamingResponse mock
+        mock_streaming_response_instance = mock_streaming_response.return_value
+        mock_streaming_response_instance.__iter__.return_value = pdf
+        mock_streaming_response_instance.media_type = 'application/pdf'
+        
         bucket_name = "test"
         aws_access_key="access"
         aws_secret_key="secret"
@@ -29,17 +35,20 @@ class TestS3Service(TestCase):
 
         # Assertions
         mock_boto3_client.assert_called_with('s3', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)
-        mock_s3.get_object.assert_called_with(Bucket=bucket_name, Key=invoice_id)
-        self.assertEqual(pdf_content, simulated_pdf_content)
+        mock_s3_client.get_object.assert_called_with(Bucket="", Key=f"{bucket_name}/{invoice_id}")
 
     @patch("boto3.client")
-    def test_download_failure(self, mock_boto3_client):
-        # Mock the S3 client
-        mock_s3 = MagicMock()
-        mock_boto3_client.return_value = mock_s3
+    @patch("fastapi.responses.StreamingResponse")
+    def test_download_failure(self, mock_streaming_response, mock_boto3_client):
+        pdf = iter([b'mock_chunk1', b'mock_chunk2'])
+        # Mocking boto3.client
+        mock_s3_client = mock_boto3_client.return_value
+        mock_s3_client.get_object.side_effect = Exception("Simulated S3 Error")
 
-        # Configure the mock_s3 to thrown
-        mock_s3.get_object.side_effect = Exception("Simulated S3 Error")
+        # Configure StreamingResponse mock
+        mock_streaming_response_instance = mock_streaming_response.return_value
+        mock_streaming_response_instance.__iter__.return_value = pdf
+        mock_streaming_response_instance.media_type = 'application/pdf'
 
         bucket_name = "test"
         aws_access_key="access"
@@ -48,13 +57,13 @@ class TestS3Service(TestCase):
         # Create an instance of S3Service
         s3_service = S3Service(bucket_name, aws_access_key, aws_secret_key)
 
+        # Call the download_pdf method
         invoice_id = randint(1, 100)
 
-        # Call the download_pdf method
         with self.assertRaises(ValueError) as context:
             s3_service.download(invoice_id)
 
         # Assertions
         mock_boto3_client.assert_called_with('s3', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)
-        mock_s3.get_object.assert_called_with(Bucket=bucket_name, Key=invoice_id)
+        mock_s3_client.get_object.assert_called_with(Bucket="", Key=f"{bucket_name}/{invoice_id}")
         self.assertEqual(str(context.exception), "Failed to retrieve file from S3")

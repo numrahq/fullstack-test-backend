@@ -1,5 +1,7 @@
 from fullstack_test.services.aws_config import AWS_ACCESS_KEY, AWS_SECRET_KEY
 import boto3
+from fastapi.responses import StreamingResponse
+from urllib.parse import unquote, urlparse
 
 # EXERCISE COMMENT:
 # The idea of having an "interface" is that we don't need to think of the implementation details
@@ -31,7 +33,19 @@ class S3Service(ObjectStorageService):
 
     def _download_from_s3(self, s3_key):
         try:
-            response = self._s3.get_object(Bucket=self.bucket_name, Key=s3_key)
-            return response['Body'].read()
-        except:
+            total_url = unquote(f"{self.bucket_name}/{s3_key}")
+
+            parsed_url = urlparse(total_url)
+
+            bucket_name = parsed_url.netloc
+
+            object_key =  parsed_url.path.lstrip('/')
+
+            response = self._s3.get_object(Bucket=bucket_name, Key=object_key)
+
+            stream = StreamingResponse(iter(response['Body'].iter_chunks()), media_type=response['ContentType'])
+
+            return stream
+        except Exception as e:
+            print(f"mvcds error {e}")
             return None

@@ -17,7 +17,10 @@ class InvoiceApi:
 
     def get_invoice_file(self, invoice_id: int):
         invoice = self.get(invoice_id)
-        return self._s3.download(invoice.number)
+
+        file = self._s3.download(invoice.number)
+
+        return file
     
     def get(self, invoice_id: int = None):
         if invoice_id is None:

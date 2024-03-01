@@ -1,6 +1,6 @@
 Here are some of the things I've noticed with the codebase that could have some improvement
 
-# Python
+# Code
 
 ## Private methods
 
@@ -18,7 +18,7 @@ It's good to have at least one generic way to hook up "catching" errors with an 
 
 As the business logic progress, specialized catches can be put in place, allowing specialized treaments.
 
-## API configurations are hard-coded
+## API configurations are hard-coded (implemented)
 
 Data from the API configuration can be set in a similar fashion that the DB cnfiguration.
 
@@ -57,6 +57,14 @@ Some people like normalize the API's responses, always returning an object. So t
 
 Having a standard allows for generalization.
 
+## All those invoices
+
+Only invoices that a user can see should appear to them. And on that matter, filtering and pagination could be implemented.
+
+Filtering in the sense that the current endpoint gets all invoices, regardless of due date, status, etc. Depending on the business rules what it returns is more granular than current implemenation.
+
+Pagination would allow us to not freeze the FE in case the volume of invoices is to big for the aforementioned user.
+
 # Docker
 
 ## Docker startup
@@ -84,9 +92,13 @@ Is it safe to assume an invoice always have those same data? Like, is it a world
 
 ## Invoice status
 
-There's no way to know which valid status exist at the moment, and how each status changes into another status.
+There's no way to know which valid statuses exist at the moment.
 
-For example, it is not clear at the moment, if it's acceptable to have a rejected invoice to be approved later. Depending on the answer and amount of states, different implementations can be used, from simple if-elses to state machines.
+Neither how each status changes into another status. For example, it is not clear at the moment, if it's acceptable to have a rejected invoice to be approved later. Depending on the answer and amount of states, different implementations can be used, from simple if-elses to state machines.
+
+## Timezones
+
+I couldn't find which timezones the dates refer to on sqlalchemy's documentation. This can be problematic if invoices can, for any reason, can be uploaded in a timezone but approved (last minute) on another.
 
 ## PDF
 

@@ -17,3 +17,5 @@ The idea is to separate a service for object storage, which is different from th
 And probably next iteration will have the repository wrapped in a service class, to which the API layer talks to. Such service class would wrapp the repository and the file storage.
 
 For the exploratory testing, I'll cheat a bit and use a different repo I have that reads from s3 buckets to see if the PDF is read successfully. This way I'll this faster during FE development time.
+
+It's important to notice that for the visualization of the PDF, the file has to be reacheable by this service on S3, this means allow-listing the endpoint to access it.

@@ -1,17 +1,55 @@
 version: '3.1'
-volumes:
-  pgdata:
 services:
-  postgres:
-    image: postgres:12
-    restart: unless-stopped
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=autonifai
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./docker/postgres/dumps:/docker-entrypoint-initdb.d
+    postgres:
+        image: postgres:12
+        restart: unless-stopped
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=autonifai
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+            - ./docker/postgres/dumps:/docker-entrypoint-initdb.d
+        networks:
+            - app-network
+
+    app:
+        environment:
+            - DB_PASSWORD=password
+            - DB_USERNAME=postgres
+            - DB_NAME=autonifai
+            - DB_HOST=postgres
+            - DB_PORT=5432
+        restart: always
+        depends_on:
+            - postgres
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/fullstack_test
+            - /fullstack_test/.venv
+        command:
+            - poetry
+            - run
+            - uvicorn
+            - "--host"
+            - "0.0.0.0"
+            - "--port"
+            - "8000"
+            - "fullstack_test.api_routes:app"
+            - "--reload"
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    pgdata:
